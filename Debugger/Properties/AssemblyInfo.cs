@@ -1,4 +1,5 @@
-﻿using System.Reflection;
+﻿using System.Resources;
+using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
@@ -8,7 +9,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("Debugger")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("XLCW")]
+[assembly: AssemblyCompany("ToLua")]
 [assembly: AssemblyProduct("Debugger")]
 [assembly: AssemblyCopyright("Copyright ©  2015")]
 [assembly: AssemblyTrademark("")]
