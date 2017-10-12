@@ -33,14 +33,16 @@
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="CString">
+      <HintPath>.\CString.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Xml" />
     <Reference Include="UnityEngine">
       <HintPath>G:\mylab\Library\UnityAssemblies\UnityEngine.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ConstStringTable.cs" />
     <Compile Include="Debugger.cs" />
     <Compile Include="ExtendMethods.cs" />
     <Compile Include="ILog.cs" />
@@ -48,6 +50,10 @@
     <Compile Include="StringBuilderCache.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>copy "$(TargetDir)$(AssemblyName).dll" "$(ProjectDir)..\..\..\xlcw\trunk\Assets\Plugins\$(AssemblyName).dll" /Y
+copy "$(TargetDir)$(AssemblyName).dll" "$(ProjectDir)..\..\tolua\Assets\Plugins\$(AssemblyName).dll" /Y</PostBuildEvent>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

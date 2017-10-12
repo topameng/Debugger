@@ -4,38 +4,41 @@ using System;
 using System.Reflection;
 using System.Text;
 
-public static class StringBuilderCache 
+namespace LuaInterface
 {
-    [ThreadStatic]
-    static StringBuilder _cache = new StringBuilder();
-    private const int MAX_BUILDER_SIZE = 512;    
-
-    public static StringBuilder Acquire(int capacity = 256)
+    public static class StringBuilderCache
     {
-        StringBuilder sb = _cache;
+        [ThreadStatic]
+        static StringBuilder _cache = new StringBuilder(256);
+        private const int MAX_BUILDER_SIZE = 512;
 
-        if (sb != null && sb.Capacity >= capacity)
+        public static StringBuilder Acquire(int capacity = 256)
         {
-            _cache = null;
-            sb.Clear();
-            return sb;
+            StringBuilder sb = _cache;
+
+            if (sb != null && sb.Capacity >= capacity)
+            {
+                _cache = null;
+                sb.Clear();
+                return sb;
+            }
+
+            return new StringBuilder(capacity);
         }
-        
-        return new StringBuilder(capacity);        
-    }
 
-    public static string GetStringAndRelease(StringBuilder sb)
-    {
-        string str = sb.ToString();
-        Release(sb);
-        return str;
-    }
-
-    public static void Release(StringBuilder sb)
-    {
-        if (sb.Capacity <= MAX_BUILDER_SIZE)
+        public static string GetStringAndRelease(StringBuilder sb)
         {
-            _cache = sb;            
+            string str = sb.ToString();
+            Release(sb);
+            return str;
+        }
+
+        public static void Release(StringBuilder sb)
+        {
+            if (sb.Capacity <= MAX_BUILDER_SIZE)
+            {
+                _cache = sb;
+            }
         }
     }
 }
